@@ -1,31 +1,19 @@
----
-apiVersion: 3
-kind: JenkinsPipeline
-metadata:
-  name: my-pipeline-job
-spec:
-  jenkinsfilePath: Jenkinsfile
-  definition:
-    pipelines:
-      - script: |
-          pipeline {
-            agent any
-            stages {
-              stage('Build') {
-                steps {
-                  sh 'echo "Building..."'
+jobs:
+  - script: >
+      pipelineJob('testjobs/default-agent') {
+        definition {
+          cps {
+            script("""\
+              pipeline {
+                agent any
+                stages {
+                  stage ('test') {
+                    steps {
+                      echo "DevOps Task"
+                    }
+                  }
                 }
-              }
-              stage('Test') {
-                steps {
-                  sh 'echo "Testing..."'
-                }
-              }
-              stage('Deploy') {
-                steps {
-                  sh 'echo "Deploying..."'
-                }
-              }
-            }
+              }""".stripIndent())
           }
-
+        }
+      }
