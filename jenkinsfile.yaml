@@ -1,6 +1,6 @@
 jobs:
   - script: >
-      pipelineJob('testjobs/default-agent') {
+      pipelineJob('my-pipeline') {
         definition {
           cps {
             script("""\
